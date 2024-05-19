@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Profile</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/fontawesome.min.css">
+  </head>
+  <body>
+    <main>
+        <h1>Profile</h1> 
+        <div>
+            <a href="index.html">Home</a>
+            <table id="data">
+                <thead>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+        <script type="text/javascript">
+            window.onload = () => {
+                // Make an AJAX request to fetch the data
+                fetch("http://localhost:3000/data")
+                .then(response => response.json())
+                .then(data => {
+                    // Get the table element
+                    const table = document.getElementById('data');
+                    const tbody = table.getElementsByTagName('tbody')[0];
+
+                    // Loop through the data and add rows to the table
+                    data.forEach(item => {
+                        const row = document.createElement('tr');
+                        const nameCell = document.createElement('td');
+                        const emailCell = document.createElement('td');
+
+                        nameCell.textContent = item.name;
+                        emailCell.textContent = item.email;
+
+                        row.appendChild(nameCell);
+                        row.appendChild(emailCell);
+                        tbody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                console.error('Error fetching data:', error);
+                });
+            }
+        </script>
+    </main>
+  </body>
+</html>
