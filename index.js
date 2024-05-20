@@ -11,8 +11,8 @@ function GetData()
     });
 }
 
-function AddData() {
-    console.log("Add Data");
+function UpsertData() {
+    console.log("Upsert Data");
     const name = document.getElementById("name").value;
     const email = document.getElementById("email").value;
 

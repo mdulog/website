@@ -35,7 +35,14 @@ app.put('/data', (req, res) => {
       skip_empty_lines: true
   });
 
-  jsonData.push(req.body);
+  // check to see if current entry exists
+  var current = jsonData.find(key => key.name === req.body.name);
+  if (current) {
+    current.email = req.body.email;
+  }
+  else{
+      jsonData.push(req.body);
+  }
 
   // Convert the JSON data back to CSV
   const csvOutput = stringify(jsonData, {
@@ -46,7 +53,7 @@ app.put('/data', (req, res) => {
   // Write the CSV data to a new file
   fs.writeFileSync(path.join(__dirname, 'data.csv'), csvOutput);
 
-  res.sendStatus(201);
+  res.json(req.body);
 });
 
 app.listen(3000, () => {
